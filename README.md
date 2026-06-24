@@ -208,7 +208,7 @@ erDiagram
 2. **Configure the Database:**
    Create a schema named `selfimprovementdb` in your MySQL instance.
    ```sql
-   CREATE DATABASE self_improvement_db;
+   CREATE DATABASE selfimprovementdb;
    ```
 
 3. **Update Application Configurations:**
@@ -239,7 +239,7 @@ The application is configured to run out-of-the-box in development mode, but sup
 
 | Configuration Key | Description | Default / Dev Value | Production Environment Variable |
 | --- | --- | --- | --- |
-| `spring.datasource.url` | JDBC Database Connection URL | `jdbc:mysql://localhost:3306/self_improvement_db` | `DB_URL` |
+| `spring.datasource.url` | JDBC Database Connection URL | `jdbc:mysql://localhost:3306/selfimprovementdb` | `DB_URL` |
 | `app.jwt.secret` | Signing key for JWT Auth | `Self-improvement AI2024SuperSecret...` | `JWT_SECRET` |
 | `app.openai.api-key` | API Key for LLM integrations | Groq API Key | `OPENAI_API_KEY` |
 | `app.openai.model` | LLM Model name | `llama3-8b-8192` | — |
@@ -282,22 +282,6 @@ The application is configured to run out-of-the-box in development mode, but sup
 * `GET /api/reports/monthly` - Generates and downloads a monthly PDF performance report.
 * `GET /api/reports/export/excel` - Exports all historical scores to a `.xlsx` Excel sheet.
 * `GET /api/reports/export/csv` - Exports historical scores to a `.csv` file.
-
----
-
-## 9. Screenshots
-*Placeholder images indicating the modern, premium dark UI:*
-
-* **Landing Page:**
-  ![Landing Page](/api/placeholder/800/450)
-* **Dashboard Overview:**
-  ![Dashboard](/api/placeholder/800/450)
-* **Focus Timer:**
-  ![Focus Timer](/api/placeholder/800/450)
-* **AI Professional Coach:**
-  ![AI Coach](/api/placeholder/800/450)
-* **Life Analytics:**
-  ![Life Analytics](/api/placeholder/800/450)
 
 ---
 
