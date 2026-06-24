@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Timer - Self-improvement</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/main.css}"><link rel="stylesheet" th:href="@{/css/components.css}">
+    <style>
+        .timer-display { font-size: 5rem; font-weight: 900; font-family: 'JetBrains Mono', monospace; text-align: center; }
+        .timer-ring { width: 280px; height: 280px; border-radius: 50%; border: 4px solid var(--border-color); display: flex; align-items: center; justify-content: center; margin: 0 auto 32px; position: relative; }
+        .timer-ring.active { border-color: var(--accent-primary); box-shadow: 0 0 40px var(--accent-glow); animation: pulse-glow 2s infinite; }
+        .timer-ring.completed { border-color: var(--accent-green); box-shadow: 0 0 40px rgba(0,184,148,0.3); }
+        .session-type-btn { padding: 10px 20px; border-radius: var(--radius-md); background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-secondary); cursor: pointer; transition: all 0.2s; }
+        .session-type-btn.active { background: rgba(108,92,231,0.2); border-color: var(--accent-primary); color: var(--accent-secondary); }
+    </style>
+</head>
+<body>
+    <nav class="navbar"><div class="container"><a href="/dashboard" class="navbar-brand"><i class="fas fa-compass"></i><span>Self-<span class="text-gradient">improvement</span></span></a>
+    <ul class="navbar-links"><li><span class="text-muted" style="font-size:0.85rem;">Today: <strong class="text-accent" th:text="${todayMinutes + ' min'}">0 min</strong> focused</span></li><li><a th:href="@{/auth/logout}" class="btn btn-ghost btn-sm"><i class="fas fa-sign-out-alt"></i></a></li></ul></div></nav>
+    <div class="app-layout">
+        <aside class="sidebar"><ul class="sidebar-nav"><li><a href="/dashboard"><i class="fas fa-th-large"></i> Dashboard</a></li><li><a href="/goals"><i class="fas fa-bullseye"></i> Goals</a></li><li><a href="/habits"><i class="fas fa-fire"></i> Habits</a></li><li><a href="/focus" class="active"><i class="fas fa-crosshairs"></i> Focus Timer</a></li></ul>
+        <div class="sidebar-section">Self-Mastery</div><ul class="sidebar-nav"><li><a href="/accountability"><i class="fas fa-clipboard-check"></i> Accountability</a></li><li><a href="/emotions"><i class="fas fa-heart-pulse"></i> Emotional Log</a></li><li><a href="/journal"><i class="fas fa-book"></i> Journal</a></li><li><a href="/discipline"><i class="fas fa-shield-halved"></i> Discipline</a></li></ul>
+        <div class="sidebar-section">AI Intelligence</div><ul class="sidebar-nav"><li><a href="/ai-coach"><i class="fas fa-user-tie"></i> Professional Coach</a></li><li><a href="/ai-decision"><i class="fas fa-scale-balanced"></i> Decision Support</a></li><li><a href="/challenges"><i class="fas fa-trophy"></i> Challenges</a></li></ul>
+        <div class="sidebar-section">Reports</div><ul class="sidebar-nav"><li><a href="/analytics"><i class="fas fa-chart-bar"></i> Analytics</a></li><li><a href="/reports"><i class="fas fa-file-alt"></i> Reports</a></li><li><a href="/profile"><i class="fas fa-user-cog"></i> Profile</a></li></ul></aside>
+
+        <main class="main-content">
+            <div class="page-header text-center"><h1><i class="fas fa-crosshairs text-accent"></i> Focus Timer</h1><p>Deep work. Zero distractions. Maximum output.</p></div>
+
+            <div class="card" style="max-width:500px;margin:0 auto;text-align:center;">
+                <!-- Session Type -->
+                <div class="flex justify-center gap-2" style="margin-bottom:24px;">
+                    <button class="session-type-btn active" onclick="setDuration(25, this)">Pomodoro<br><small>25 min</small></button>
+                    <button class="session-type-btn" onclick="setDuration(50, this)">Deep Work<br><small>50 min</small></button>
+                    <button class="session-type-btn" onclick="setDuration(90, this)">Flow State<br><small>90 min</small></button>
+                    <button class="session-type-btn" onclick="setDuration(120, this)" style="background:rgba(225,112,85,0.1);border-color:var(--accent-orange);">Dopamine Detox<br><small>2 hrs</small></button>
+                </div>
+
+                <div class="timer-ring" id="timerRing">
+                    <div class="timer-display text-gradient" id="timerDisplay">25:00</div>
+                </div>
+
+                <div class="flex justify-center gap-2" style="margin-bottom:24px;">
+                    <button class="btn btn-primary btn-lg" id="startBtn" onclick="startTimer()"><i class="fas fa-play"></i> Start Focus</button>
+                    <button class="btn btn-outline btn-lg" id="pauseBtn" onclick="pauseTimer()" style="display:none;"><i class="fas fa-pause"></i> Pause</button>
+                    <button class="btn btn-danger btn-lg" id="stopBtn" onclick="stopTimer()" style="display:none;"><i class="fas fa-stop"></i> End</button>
+                </div>
+
+                <div id="distractionCounter" style="display:none;" class="flex justify-center items-center gap-3">
+                    <span class="text-muted">Distractions:</span>
+                    <button class="btn btn-sm btn-outline" onclick="addDistraction()"><i class="fas fa-plus"></i> Got Distracted</button>
+                    <span id="distractionCount" class="text-accent" style="font-size:1.5rem;font-weight:700;">0</span>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script th:src="@{/js/app.js}"></script>
+    <script>
+        let duration = 25 * 60, remaining = duration, interval = null, sessionId = null, distractions = 0, running = false;
+
+        function setDuration(mins, btn) {
+            if (running) return;
+            duration = mins * 60; remaining = duration;
+            document.querySelectorAll('.session-type-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            const m = Math.floor(remaining / 60), s = remaining % 60;
+            document.getElementById('timerDisplay').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        }
+
+        async function startTimer() {
+            if (running) return;
+            running = true;
+            const types = {'25':'POMODORO','50':'DEEP_WORK','90':'FLOW','120':'DOPAMINE_DETOX'};
+            const mins = duration / 60;
+            const type = types[mins] || 'DEEP_WORK';
+            try {
+                const res = await apiRequest('/api/focus/start', 'POST', { title: type + ' Session', sessionType: type, plannedMinutes: mins });
+                sessionId = res.data.sessionId;
+            } catch(e) { sessionId = null; }
+
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('pauseBtn').style.display = '';
+            document.getElementById('stopBtn').style.display = '';
+            document.getElementById('distractionCounter').style.display = '';
+            document.getElementById('timerRing').classList.add('active');
+
+            interval = setInterval(() => {
+                remaining--;
+                updateDisplay();
+                if (remaining <= 0) { clearInterval(interval); completeSession(); }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            if (interval) { clearInterval(interval); interval = null; document.getElementById('pauseBtn').innerHTML = '<i class="fas fa-play"></i> Resume'; }
+            else { interval = setInterval(() => { remaining--; updateDisplay(); if(remaining<=0){clearInterval(interval);completeSession();} }, 1000); document.getElementById('pauseBtn').innerHTML = '<i class="fas fa-pause"></i> Pause'; }
+        }
+
+        function addDistraction() { distractions++; document.getElementById('distractionCount').textContent = distractions; }
+
+        async function stopTimer() { clearInterval(interval); await completeSession(); }
+
+        async function completeSession() {
+            running = false;
+            document.getElementById('timerRing').classList.remove('active');
+            document.getElementById('timerRing').classList.add('completed');
+            document.getElementById('startBtn').style.display = '';
+            document.getElementById('pauseBtn').style.display = 'none';
+            document.getElementById('stopBtn').style.display = 'none';
+            if (sessionId) {
+                try {
+                    const res = await apiRequest(`/api/focus/${sessionId}/end`, 'POST', { distractions, notes: '' });
+                    showToast(`Session complete! Focus Score: ${res.data.focusScore}`, 'success');
+                } catch(e) {}
+            }
+            remaining = duration; distractions = 0;
+            document.getElementById('distractionCount').textContent = '0';
+            setTimeout(() => { updateDisplay(); document.getElementById('timerRing').classList.remove('completed'); }, 3000);
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Accountability - Self-improvement</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><link rel="stylesheet" th:href="@{/css/main.css}"><link rel="stylesheet" th:href="@{/css/components.css}"></head>
+<body>
+<nav class="navbar"><div class="container"><a href="/dashboard" class="navbar-brand"><i class="fas fa-compass"></i><span>Self-<span class="text-gradient">improvement</span></span></a><ul class="navbar-links"><li><a th:href="@{/auth/logout}" class="btn btn-ghost btn-sm"><i class="fas fa-sign-out-alt"></i></a></li></ul></div></nav>
+<div class="app-layout">
+<aside class="sidebar"><ul class="sidebar-nav"><li><a href="/dashboard"><i class="fas fa-th-large"></i> Dashboard</a></li><li><a href="/goals"><i class="fas fa-bullseye"></i> Goals</a></li><li><a href="/habits"><i class="fas fa-fire"></i> Habits</a></li><li><a href="/focus"><i class="fas fa-crosshairs"></i> Focus Timer</a></li></ul><div class="sidebar-section">Self-Mastery</div><ul class="sidebar-nav"><li><a href="/accountability" class="active"><i class="fas fa-clipboard-check"></i> Accountability</a></li><li><a href="/emotions"><i class="fas fa-heart-pulse"></i> Emotional Log</a></li><li><a href="/journal"><i class="fas fa-book"></i> Journal</a></li><li><a href="/discipline"><i class="fas fa-shield-halved"></i> Discipline</a></li></ul><div class="sidebar-section">AI Intelligence</div><ul class="sidebar-nav"><li><a href="/ai-coach"><i class="fas fa-user-tie"></i> Professional Coach</a></li><li><a href="/ai-decision"><i class="fas fa-scale-balanced"></i> Decision Support</a></li></ul><div class="sidebar-section">Reports</div><ul class="sidebar-nav"><li><a href="/analytics"><i class="fas fa-chart-bar"></i> Analytics</a></li><li><a href="/profile"><i class="fas fa-user-cog"></i> Profile</a></li></ul></aside>
+<main class="main-content">
+    <div class="page-header"><h1><i class="fas fa-clipboard-check text-accent"></i> Daily Accountability</h1><p>Plan your morning. Review your night. Own your day.</p></div>
+    <div class="grid grid-2 gap-3">
+        <!-- Morning Plan -->
+        <div class="card"><h3><i class="fas fa-sun" style="color:var(--accent-yellow);"></i> Morning Plan</h3>
+        <div th:if="${morningPlan != null}" style="margin-top:16px;">
+            <div style="padding:16px;background:var(--bg-input);border-radius:var(--radius-md);margin-bottom:8px;"><strong class="text-accent">Priorities:</strong><p class="text-secondary" style="margin-top:4px;" th:text="${morningPlan.topPriorities}"></p></div>
+            <div style="padding:16px;background:var(--bg-input);border-radius:var(--radius-md);margin-bottom:8px;"><strong style="color:var(--accent-green);">Gratitude:</strong><p class="text-secondary" style="margin-top:4px;" th:text="${morningPlan.gratitude}"></p></div>
+            <span class="badge badge-success"><i class="fas fa-check"></i> Completed</span>
+        </div>
+        <form th:if="${morningPlan == null}" th:action="@{/accountability/morning}" method="post" style="margin-top:16px;">
+            <div class="form-group"><label class="form-label">Top 3 Priorities Today</label><textarea class="form-input" name="topPriorities" rows="3" placeholder="1.&#10;2.&#10;3." required></textarea></div>
+            <div class="form-group"><label class="form-label">I'm grateful for...</label><textarea class="form-input" name="gratitude" rows="2" placeholder="What are you grateful for today?" required></textarea></div>
+            <div class="form-group"><label class="form-label">Today's intention</label><input type="text" class="form-input" name="intention" placeholder="What is your one focus today?" required></div>
+            <button type="submit" class="btn btn-primary btn-full"><i class="fas fa-sun"></i> Save Morning Plan</button>
+        </form></div>
+        <!-- Night Review -->
+        <div class="card"><h3><i class="fas fa-moon" style="color:var(--accent-secondary);"></i> Night Review</h3>
+        <div th:if="${nightReview != null}" style="margin-top:16px;">
+            <div style="padding:16px;background:var(--bg-input);border-radius:var(--radius-md);margin-bottom:8px;"><strong class="text-accent">Wins:</strong><p class="text-secondary" style="margin-top:4px;" th:text="${nightReview.wins}"></p></div>
+            <div style="padding:16px;background:var(--bg-input);border-radius:var(--radius-md);margin-bottom:8px;"><strong style="color:var(--accent-orange);">Lessons:</strong><p class="text-secondary" style="margin-top:4px;" th:text="${nightReview.lessons}"></p></div>
+            <div class="flex gap-2" style="margin-top:8px;"><span class="badge badge-primary">Productivity: <span th:text="${nightReview.productivityRating}"></span>/10</span><span class="badge badge-primary">Discipline: <span th:text="${nightReview.disciplineRating}"></span>/10</span></div>
+        </div>
+        <form th:if="${nightReview == null}" th:action="@{/accountability/night}" method="post" style="margin-top:16px;">
+            <div class="form-group"><label class="form-label">Reflection</label><textarea class="form-input" name="reflection" rows="2" placeholder="How was your day?" required></textarea></div>
+            <div class="form-group"><label class="form-label">Wins</label><textarea class="form-input" name="wins" rows="2" placeholder="What went well?" required></textarea></div>
+            <div class="form-group"><label class="form-label">Lessons Learned</label><textarea class="form-input" name="lessons" rows="2" placeholder="What will you improve?" required></textarea></div>
+            <div class="form-group"><label class="form-label">Tomorrow's Plan</label><textarea class="form-input" name="tomorrowPlan" rows="2" placeholder="Key tasks for tomorrow" required></textarea></div>
+            <div class="flex gap-2">
+                <div class="form-group" style="flex:1"><label class="form-label">Productivity (1-10)</label><input type="number" class="form-input" name="productivityRating" min="1" max="10" required></div>
+                <div class="form-group" style="flex:1"><label class="form-label">Discipline (1-10)</label><input type="number" class="form-input" name="disciplineRating" min="1" max="10" required></div>
+                <div class="form-group" style="flex:1"><label class="form-label">Overall (1-10)</label><input type="number" class="form-input" name="overallRating" min="1" max="10" required></div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full"><i class="fas fa-moon"></i> Save Night Review</button>
+        </form></div>
+    </div>
+</main></div>
+<script th:src="@{/js/app.js}"></script>
+</body></html>
+

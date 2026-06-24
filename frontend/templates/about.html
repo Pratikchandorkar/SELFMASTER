@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Self-improvement</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/components.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="navbar-brand">
+                <i class="fas fa-compass"></i>
+                <span>Self-<span class="text-gradient">improvement</span></span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about" class="active">About</a></li>
+                <li><a th:href="@{/auth/login}" class="btn btn-outline btn-sm">Login</a></li>
+                <li><a th:href="@{/auth/register}" class="btn btn-primary btn-sm">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="section" style="padding-top: 120px;">
+        <div class="container" style="max-width: 800px;">
+            <h1 class="text-center animate-fadeInUp">About <span class="text-gradient">Self-improvement</span></h1>
+            <p class="text-center text-secondary" style="margin: 16px 0 48px; font-size: 1.1rem;">
+                The science of self-mastery, powered by artificial intelligence.
+            </p>
+
+            <div class="card" style="margin-bottom: 24px;">
+                <h3><i class="fas fa-dna text-accent"></i> The Problem</h3>
+                <p class="text-secondary" style="margin-top: 12px; line-height: 1.8;">
+                    Most people know what they need to do — yet they don't do it. This gap between knowing and doing 
+                    is caused by deep psychological patterns: dopamine addiction, emotional avoidance, comfort zone loops, 
+                    and a hijacked reward system. Traditional productivity tools treat symptoms, not root causes.
+                </p>
+            </div>
+
+            <div class="card" style="margin-bottom: 24px;">
+                <h3><i class="fas fa-lightbulb text-accent"></i> Our Solution</h3>
+                <p class="text-secondary" style="margin-top: 12px; line-height: 1.8;">
+                    Self-improvement is a behavioral intelligence platform that understands the neuroscience behind your actions. 
+                    It analyzes your habits, emotions, focus patterns, and decision-making — then provides AI-powered coaching 
+                    grounded in psychology, neuroscience, and behavioral science.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-rocket text-accent"></i> The Vision</h3>
+                <p class="text-secondary" style="margin-top: 12px; line-height: 1.8;">
+                    To build the world's most intelligent self-improvement platform — one that doesn't just track what you do, 
+                    but understands WHY you do it, predicts WHERE you'll fail, and guides you on HOW to change. 
+                    Become the master of yourself.
+                </p>
+            </div>
+
+            <div class="text-center" style="margin-top: 48px;">
+                <a th:href="@{/auth/register}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-rocket"></i> Start Your Journey
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Self-improvement. Become the Master of Yourself.</p>
+        </div>
+    </footer>
+    <script th:src="@{/js/app.js}"></script>
+</body>
+</html>
+

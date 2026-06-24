@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Self-improvement</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/components.css}">
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-card">
+            <a href="/" class="navbar-brand" style="justify-content: center; margin-bottom: 24px;">
+                <i class="fas fa-compass"></i>
+                <span>Self-<span class="text-gradient">improvement</span></span>
+            </a>
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Sign in to continue your mastery journey</p>
+
+            <div th:if="${error}" class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i>
+                <span th:text="${error}">Error message</span>
+            </div>
+
+            <div th:if="${param.error}" class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i>
+                <span th:text="${param.error}">Error message</span>
+            </div>
+
+            <div th:if="${param.success}" class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                <span th:text="${param.success}">Success message</span>
+            </div>
+
+            <div th:if="${param.logout}" class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                <span>You have been logged out successfully.</span>
+            </div>
+
+            <form th:action="@{/auth/login}" method="post" th:object="${loginRequest}">
+                <div class="form-group">
+                    <label class="form-label">Email or Username</label>
+                    <input type="text" class="form-input" th:field="*{usernameOrEmail}" 
+                           placeholder="Enter your email or username" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" th:field="*{password}" 
+                           placeholder="Enter your password" required>
+                </div>
+                <div class="flex justify-between items-center" style="margin-bottom: 24px;">
+                    <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); cursor: pointer;">
+                        <input type="checkbox" style="accent-color: var(--accent-primary);"> Remember me
+                    </label>
+                    <a th:href="@{/auth/forgot-password}" style="font-size: 0.85rem;">Forgot password?</a>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full btn-lg">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+            </form>
+
+            <p class="auth-divider">Don't have an account?</p>
+            <a th:href="@{/auth/register}" class="btn btn-outline btn-full">Create Account</a>
+        </div>
+    </div>
+</body>
+</html>
+

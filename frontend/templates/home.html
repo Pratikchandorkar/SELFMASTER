@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-improvement - Become the Master of Yourself</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/components.css}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="navbar-brand">
+                <i class="fas fa-compass"></i>
+                <span>Self-<span class="text-gradient">improvement</span></span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a th:href="@{/auth/login}" class="btn btn-outline btn-sm">Login</a></li>
+                <li><a th:href="@{/auth/register}" class="btn btn-primary btn-sm">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content animate-fadeInUp">
+                <div class="badge badge-primary" style="margin-bottom: 20px;">
+                    <i class="fas fa-bolt"></i> AI-Powered Self-Mastery
+                </div>
+                <h1>Become the <span class="text-gradient">Master</span> of Yourself</h1>
+                <p>An intelligent behavioral operating system that understands your psychology, 
+                   defeats your procrastination, builds unbreakable discipline, and transforms 
+                   you into the best version of yourself — powered by neuroscience and AI.</p>
+                <div class="flex gap-2">
+                    <a th:href="@{/auth/register}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-rocket"></i> Start Your Journey
+                    </a>
+                    <a href="/about" class="btn btn-outline btn-lg">
+                        <i class="fas fa-play-circle"></i> Learn More
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <h3>7+</h3>
+                        <p>Mastery Scores</p>
+                    </div>
+                    <div class="hero-stat">
+                        <h3>AI</h3>
+                        <p>Life Coach</p>
+                    </div>
+                    <div class="hero-stat">
+                        <h3>360°</h3>
+                        <p>Behavioral Analysis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 60px;">
+                <h2 class="animate-fadeInUp">Your <span class="text-gradient">Complete</span> Self-Mastery System</h2>
+                <p class="text-secondary" style="max-width: 600px; margin: 16px auto 0;">
+                    Not just another habit tracker. A deep behavioral intelligence platform 
+                    that understands WHY you fail and HOW to change.
+                </p>
+            </div>
+            <div class="grid grid-3 gap-3">
+                <div class="card animate-fadeInUp delay-1">
+                    <div class="feature-icon"><i class="fas fa-compass"></i></div>
+                    <h4>Professional Coach</h4>
+                    <p class="text-secondary" style="margin-top: 8px; font-size: 0.9rem;">
+                        Your personal psychologist, strategist, and accountability partner 
+                        that identifies excuses and procrastination patterns.
+                    </p>
+                </div>
+                <div class="card animate-fadeInUp delay-2">
+                    <div class="feature-icon" style="background: rgba(0,206,201,0.1); color: var(--accent-cyan);">
+                        <i class="fas fa-shield-halved"></i>
+                    </div>
+                    <h4>Discipline Engine</h4>
+                    <p class="text-secondary" style="margin-top: 8px; font-size: 0.9rem;">
+                        Track self-control, detect comfort zones, measure focus, 
+                        and activate dopamine detox mode.
+                    </p>
+                </div>
+                <div class="card animate-fadeInUp delay-3">
+                    <div class="feature-icon" style="background: rgba(253,121,168,0.1); color: var(--accent-pink);">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4>Mastery Analytics</h4>
+                    <p class="text-secondary" style="margin-top: 8px; font-size: 0.9rem;">
+                        7 behavioral scores — discipline, focus, self-control, consistency, 
+                        emotional balance, productivity, mental resilience.
+                    </p>
+                </div>
+                <div class="card animate-fadeInUp delay-3">
+                    <div class="feature-icon" style="background: rgba(0,184,148,0.1); color: var(--accent-green);">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h4>SMART Goals</h4>
+                    <p class="text-secondary" style="margin-top: 8px; font-size: 0.9rem;">
+                        AI-powered goal breakdown with milestones, progress tracking, 
+                        and priority management.
+                    </p>
+                </div>
+                <div class="card animate-fadeInUp delay-4">
+                    <div class="feature-icon" style="background: rgba(225,112,85,0.1); color: var(--accent-orange);">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h4>Habit Intelligence</h4>
+                    <p class="text-secondary" style="margin-top: 8px; font-size: 0.9rem;">
+                        Streak tracking, heatmaps, trigger analysis, relapse detection, 
+                        and dopamine habit analysis.
+                    </p>
+                </div>
+                <div class="card animate-fadeInUp delay-5">
+                    <div class="feature-icon" style="background: rgba(116,185,255,0.1); color: var(--accent-blue);">
+                        <i class="fas fa-heart-pulse"></i>
+                    </div>
+                    <h4>Emotional Intelligence</h4>
+                    <p class="text-secondary" style="margin-top: 8px; font-size: 0.9rem;">
+                        Track mood, energy, stress. Understand emotional triggers 
+                        and build emotional resilience.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+        <div class="container text-center">
+            <h2 class="animate-fadeInUp">Ready to <span class="text-gradient">Transform</span>?</h2>
+            <p class="text-secondary" style="max-width: 500px; margin: 16px auto 36px;">
+                Stop knowing what to do. Start doing it. Let AI help you understand 
+                your own mind and build unbreakable discipline.
+            </p>
+            <a th:href="@{/auth/register}" class="btn btn-primary btn-lg animate-pulse-glow">
+                <i class="fas fa-rocket"></i> Begin Your Transformation
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Self-improvement. Become the Master of Yourself.</p>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/app.js}"></script>
+</body>
+</html>
+

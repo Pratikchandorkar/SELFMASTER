@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Challenges - Self-improvement</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><link rel="stylesheet" th:href="@{/css/main.css}"><link rel="stylesheet" th:href="@{/css/components.css}"></head>
+<body>
+<nav class="navbar"><div class="container"><a href="/dashboard" class="navbar-brand"><i class="fas fa-compass"></i><span>Self-<span class="text-gradient">improvement</span></span></a><ul class="navbar-links"><li><a th:href="@{/auth/logout}" class="btn btn-ghost btn-sm"><i class="fas fa-sign-out-alt"></i></a></li></ul></div></nav>
+<div class="app-layout">
+<aside class="sidebar"><ul class="sidebar-nav"><li><a href="/dashboard"><i class="fas fa-th-large"></i> Dashboard</a></li><li><a href="/goals"><i class="fas fa-bullseye"></i> Goals</a></li><li><a href="/habits"><i class="fas fa-fire"></i> Habits</a></li><li><a href="/focus"><i class="fas fa-crosshairs"></i> Focus Timer</a></li></ul><div class="sidebar-section">Self-Mastery</div><ul class="sidebar-nav"><li><a href="/accountability"><i class="fas fa-clipboard-check"></i> Accountability</a></li><li><a href="/emotions"><i class="fas fa-heart-pulse"></i> Emotional Log</a></li><li><a href="/journal"><i class="fas fa-book"></i> Journal</a></li><li><a href="/discipline"><i class="fas fa-shield-halved"></i> Discipline</a></li></ul><div class="sidebar-section">AI Intelligence</div><ul class="sidebar-nav"><li><a href="/ai-coach"><i class="fas fa-user-tie"></i> Professional Coach</a></li><li><a href="/ai-decision"><i class="fas fa-scale-balanced"></i> Decision Support</a></li><li><a href="/challenges" class="active"><i class="fas fa-trophy"></i> Challenges</a></li></ul><div class="sidebar-section">Reports</div><ul class="sidebar-nav"><li><a href="/analytics"><i class="fas fa-chart-bar"></i> Analytics</a></li><li><a href="/reports"><i class="fas fa-file-alt"></i> Reports</a></li><li><a href="/profile"><i class="fas fa-user-cog"></i> Profile</a></li></ul></aside>
+<main class="main-content">
+    <div class="page-header"><h1><i class="fas fa-trophy text-accent"></i> Challenges</h1><p>Push your limits. Earn XP. Level up.</p></div>
+    <div class="grid grid-3 gap-3">
+        <div class="card" style="border-left:3px solid var(--accent-green);">
+            <span class="badge badge-success">EASY</span><h4 style="margin-top:12px;">7-Day No Social Media</h4><p class="text-secondary" style="font-size:0.85rem;margin:8px 0;">Completely avoid social media for 7 days. Reclaim your dopamine system.</p>
+            <div class="flex justify-between" style="margin-top:12px;"><span class="text-muted" style="font-size:0.8rem;">7 days</span><span class="badge badge-primary"><i class="fas fa-star"></i> 100 XP</span></div>
+            <button class="btn btn-success btn-sm btn-full" style="margin-top:12px;"><i class="fas fa-play"></i> Start Challenge</button>
+        </div>
+        <div class="card" style="border-left:3px solid var(--accent-orange);">
+            <span class="badge badge-warning">MEDIUM</span><h4 style="margin-top:12px;">14-Day Deep Work Sprint</h4><p class="text-secondary" style="font-size:0.85rem;margin:8px 0;">Complete 2 hours of deep work every day for 14 days straight.</p>
+            <div class="flex justify-between" style="margin-top:12px;"><span class="text-muted" style="font-size:0.8rem;">14 days</span><span class="badge badge-primary"><i class="fas fa-star"></i> 300 XP</span></div>
+            <button class="btn btn-outline btn-sm btn-full" style="margin-top:12px;"><i class="fas fa-play"></i> Start Challenge</button>
+        </div>
+        <div class="card" style="border-left:3px solid var(--accent-red);">
+            <span class="badge badge-danger">HARD</span><h4 style="margin-top:12px;">30-Day Discipline Master</h4><p class="text-secondary" style="font-size:0.85rem;margin:8px 0;">Complete morning plan, all habits, 1hr deep work, night review — every day for 30 days.</p>
+            <div class="flex justify-between" style="margin-top:12px;"><span class="text-muted" style="font-size:0.8rem;">30 days</span><span class="badge badge-primary"><i class="fas fa-star"></i> 1000 XP</span></div>
+            <button class="btn btn-outline btn-sm btn-full" style="margin-top:12px;"><i class="fas fa-play"></i> Start Challenge</button>
+        </div>
+        <div class="card" style="border-left:3px solid var(--accent-cyan);">
+            <span class="badge badge-primary">MEDIUM</span><h4 style="margin-top:12px;">Emotion Explorer</h4><p class="text-secondary" style="font-size:0.85rem;margin:8px 0;">Log your emotions 3 times daily for 7 days. Understand your emotional patterns.</p>
+            <div class="flex justify-between" style="margin-top:12px;"><span class="text-muted" style="font-size:0.8rem;">7 days</span><span class="badge badge-primary"><i class="fas fa-star"></i> 150 XP</span></div>
+            <button class="btn btn-outline btn-sm btn-full" style="margin-top:12px;"><i class="fas fa-play"></i> Start Challenge</button>
+        </div>
+        <div class="card" style="border-left:3px solid var(--accent-pink);">
+            <span class="badge badge-danger">EXTREME</span><h4 style="margin-top:12px;">Dopamine Detox Week</h4><p class="text-secondary" style="font-size:0.85rem;margin:8px 0;">No entertainment, social media, junk food, or instant gratification for 7 days.</p>
+            <div class="flex justify-between" style="margin-top:12px;"><span class="text-muted" style="font-size:0.8rem;">7 days</span><span class="badge badge-primary"><i class="fas fa-star"></i> 500 XP</span></div>
+            <button class="btn btn-outline btn-sm btn-full" style="margin-top:12px;"><i class="fas fa-play"></i> Start Challenge</button>
+        </div>
+        <div class="card" style="border-left:3px solid var(--accent-yellow);">
+            <span class="badge badge-success">EASY</span><h4 style="margin-top:12px;">Gratitude Journal</h4><p class="text-secondary" style="font-size:0.85rem;margin:8px 0;">Write 3 things you're grateful for every day for 21 days.</p>
+            <div class="flex justify-between" style="margin-top:12px;"><span class="text-muted" style="font-size:0.8rem;">21 days</span><span class="badge badge-primary"><i class="fas fa-star"></i> 200 XP</span></div>
+            <button class="btn btn-outline btn-sm btn-full" style="margin-top:12px;"><i class="fas fa-play"></i> Start Challenge</button>
+        </div>
+    </div>
+</main></div>
+<script th:src="@{/js/app.js}"></script>
+</body></html>
+

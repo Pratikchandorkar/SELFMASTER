@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habits - Self-improvement</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/main.css}"><link rel="stylesheet" th:href="@{/css/components.css}">
+</head>
+<body>
+    <nav class="navbar"><div class="container"><a href="/dashboard" class="navbar-brand"><i class="fas fa-compass"></i><span>Self-<span class="text-gradient">improvement</span></span></a>
+    <ul class="navbar-links"><li><span class="badge badge-primary"><i class="fas fa-star"></i> Level <span th:text="${user?.level ?: 1}"></span></span></li><li><a th:href="@{/auth/logout}" class="btn btn-ghost btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</a></li></ul></div></nav>
+    <div class="app-layout">
+        <aside class="sidebar"><ul class="sidebar-nav"><li><a href="/dashboard"><i class="fas fa-th-large"></i> Dashboard</a></li><li><a href="/goals"><i class="fas fa-bullseye"></i> Goals</a></li><li><a href="/habits" class="active"><i class="fas fa-fire"></i> Habits</a></li><li><a href="/focus"><i class="fas fa-crosshairs"></i> Focus Timer</a></li></ul>
+        <div class="sidebar-section">Self-Mastery</div><ul class="sidebar-nav"><li><a href="/accountability"><i class="fas fa-clipboard-check"></i> Accountability</a></li><li><a href="/emotions"><i class="fas fa-heart-pulse"></i> Emotional Log</a></li><li><a href="/journal"><i class="fas fa-book"></i> Journal</a></li><li><a href="/discipline"><i class="fas fa-shield-halved"></i> Discipline</a></li></ul>
+        <div class="sidebar-section">AI Intelligence</div><ul class="sidebar-nav"><li><a href="/ai-coach"><i class="fas fa-user-tie"></i> Professional Coach</a></li><li><a href="/ai-decision"><i class="fas fa-scale-balanced"></i> Decision Support</a></li><li><a href="/challenges"><i class="fas fa-trophy"></i> Challenges</a></li></ul>
+        <div class="sidebar-section">Reports</div><ul class="sidebar-nav"><li><a href="/analytics"><i class="fas fa-chart-bar"></i> Analytics</a></li><li><a href="/reports"><i class="fas fa-file-alt"></i> Reports</a></li><li><a href="/profile"><i class="fas fa-user-cog"></i> Profile</a></li></ul></aside>
+
+        <main class="main-content">
+            <div class="page-header flex justify-between items-center">
+                <div><h1><i class="fas fa-fire text-accent"></i> Habits</h1><p>Build powerful habits. Track your streaks. Master your behavior.</p></div>
+                <button class="btn btn-primary" onclick="document.getElementById('habitModal').style.display='flex'"><i class="fas fa-plus"></i> New Habit</button>
+            </div>
+
+            <!-- Today's Habits -->
+            <h3 style="margin-bottom:16px;">Today's Habits</h3>
+            <div class="grid grid-3 gap-3" th:if="${habits != null && !habits.isEmpty()}">
+                <div class="card" th:each="habit : ${habits}" th:style="'border-left: 3px solid ' + ${habit.color}">
+                    <div class="flex justify-between items-center" style="margin-bottom:8px;">
+                        <div class="flex items-center gap-2">
+                            <i class="fas" th:classappend="${habit.icon}" th:style="'color:' + ${habit.color}"></i>
+                            <h4 th:text="${habit.name}">Habit</h4>
+                        </div>
+                        <span class="badge badge-success" th:if="${habit.completedToday}"><i class="fas fa-check"></i> Done</span>
+                    </div>
+                    <p class="text-secondary" style="font-size:0.8rem;" th:text="${habit.description}"></p>
+                    <div class="flex gap-3" style="margin-top:12px;">
+                        <div><span class="text-muted" style="font-size:0.7rem;">STREAK</span><br><strong th:style="'color:' + ${habit.color}" th:text="${habit.currentStreak + ' days'}">0</strong></div>
+                        <div><span class="text-muted" style="font-size:0.7rem;">BEST</span><br><strong th:text="${habit.longestStreak + ' days'}">0</strong></div>
+                        <div><span class="text-muted" style="font-size:0.7rem;">SCORE</span><br><strong th:text="${habit.habitScore + '%'}">0%</strong></div>
+                    </div>
+                    <form th:action="@{'/habits/' + ${habit.id} + '/log'}" method="post" th:if="${!habit.completedToday}" style="margin-top:12px;">
+                        <button type="submit" class="btn btn-success btn-sm btn-full"><i class="fas fa-check"></i> Mark Complete</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card text-center" th:if="${habits == null || habits.isEmpty()}" style="padding:60px;">
+                <i class="fas fa-fire" style="font-size:3rem;color:var(--text-muted);"></i>
+                <h3 style="margin-top:16px;">No Habits Yet</h3>
+                <p class="text-muted">Start building your first habit today.</p>
+            </div>
+
+            <!-- Create Habit Modal -->
+            <div id="habitModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:2000;align-items:center;justify-content:center;">
+                <div class="auth-card" style="max-width:480px;">
+                    <h3 style="margin-bottom:20px;"><i class="fas fa-fire text-accent"></i> Create New Habit</h3>
+                    <form th:action="@{/habits}" method="post" th:object="${createRequest}">
+                        <div class="form-group"><label class="form-label">Habit Name</label><input type="text" class="form-input" th:field="*{name}" placeholder="e.g., Morning meditation" required></div>
+                        <div class="form-group"><label class="form-label">Description</label><textarea class="form-input" th:field="*{description}" rows="2" placeholder="Why is this habit important?"></textarea></div>
+                        <div class="flex gap-2">
+                            <div class="form-group" style="flex:1"><label class="form-label">Type</label><select class="form-input" th:field="*{habitType}"><option value="BUILD">Build</option><option value="BREAK">Break</option></select></div>
+                            <div class="form-group" style="flex:1"><label class="form-label">Frequency</label><select class="form-input" th:field="*{frequency}"><option value="DAILY">Daily</option><option value="WEEKLY">Weekly</option></select></div>
+                        </div>
+                        <div class="form-group"><label class="form-label">Category</label><input type="text" class="form-input" th:field="*{category}" placeholder="e.g., Health, Mindset"></div>
+                        <div class="form-group"><label class="form-label">Trigger/Cue</label><input type="text" class="form-input" th:field="*{triggerCue}" placeholder="What triggers this habit?"></div>
+                        <div class="flex gap-2" style="margin-top:16px;">
+                            <button type="submit" class="btn btn-primary" style="flex:1"><i class="fas fa-save"></i> Create Habit</button>
+                            <button type="button" class="btn btn-outline" onclick="document.getElementById('habitModal').style.display='none'">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script th:src="@{/js/app.js}"></script>
+</body>
+</html>
+

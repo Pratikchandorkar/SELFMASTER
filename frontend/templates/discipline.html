@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Discipline - Self-improvement</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><link rel="stylesheet" th:href="@{/css/main.css}"><link rel="stylesheet" th:href="@{/css/components.css}">
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script></head>
+<body>
+<nav class="navbar"><div class="container"><a href="/dashboard" class="navbar-brand"><i class="fas fa-compass"></i><span>Self-<span class="text-gradient">improvement</span></span></a><ul class="navbar-links"><li><a th:href="@{/auth/logout}" class="btn btn-ghost btn-sm"><i class="fas fa-sign-out-alt"></i></a></li></ul></div></nav>
+<div class="app-layout">
+<aside class="sidebar"><ul class="sidebar-nav"><li><a href="/dashboard"><i class="fas fa-th-large"></i> Dashboard</a></li><li><a href="/goals"><i class="fas fa-bullseye"></i> Goals</a></li><li><a href="/habits"><i class="fas fa-fire"></i> Habits</a></li><li><a href="/focus"><i class="fas fa-crosshairs"></i> Focus Timer</a></li></ul><div class="sidebar-section">Self-Mastery</div><ul class="sidebar-nav"><li><a href="/accountability"><i class="fas fa-clipboard-check"></i> Accountability</a></li><li><a href="/emotions"><i class="fas fa-heart-pulse"></i> Emotional Log</a></li><li><a href="/journal"><i class="fas fa-book"></i> Journal</a></li><li><a href="/discipline" class="active"><i class="fas fa-shield-halved"></i> Discipline</a></li></ul><div class="sidebar-section">AI Intelligence</div><ul class="sidebar-nav"><li><a href="/ai-coach"><i class="fas fa-user-tie"></i> Professional Coach</a></li></ul><div class="sidebar-section">Reports</div><ul class="sidebar-nav"><li><a href="/analytics"><i class="fas fa-chart-bar"></i> Analytics</a></li><li><a href="/profile"><i class="fas fa-user-cog"></i> Profile</a></li></ul></aside>
+<main class="main-content">
+    <div class="page-header"><h1><i class="fas fa-shield-halved text-accent"></i> Discipline & Self-Mastery Scores</h1><p>Your behavioral intelligence scores — updated daily based on your activity.</p></div>
+
+    <!-- Score Cards -->
+    <div class="grid grid-4 gap-3" style="margin-bottom:32px;">
+        <div class="stat-card"><div class="stat-icon purple"><i class="fas fa-shield-halved"></i></div><div class="stat-info"><h4 th:text="${scores?.disciplineScore ?: 0}">0</h4><p>Discipline</p></div></div>
+        <div class="stat-card"><div class="stat-icon cyan"><i class="fas fa-crosshairs"></i></div><div class="stat-info"><h4 th:text="${scores?.focusScore ?: 0}">0</h4><p>Focus</p></div></div>
+        <div class="stat-card"><div class="stat-icon pink"><i class="fas fa-hand-fist"></i></div><div class="stat-info"><h4 th:text="${scores?.selfControlScore ?: 0}">0</h4><p>Self-Control</p></div></div>
+        <div class="stat-card"><div class="stat-icon green"><i class="fas fa-repeat"></i></div><div class="stat-info"><h4 th:text="${scores?.consistencyScore ?: 0}">0</h4><p>Consistency</p></div></div>
+    </div>
+    <div class="grid grid-4 gap-3" style="margin-bottom:32px;">
+        <div class="stat-card"><div class="stat-icon blue"><i class="fas fa-heart"></i></div><div class="stat-info"><h4 th:text="${scores?.emotionalBalanceScore ?: 0}">0</h4><p>Emotional Balance</p></div></div>
+        <div class="stat-card"><div class="stat-icon orange"><i class="fas fa-chart-line"></i></div><div class="stat-info"><h4 th:text="${scores?.productivityScore ?: 0}">0</h4><p>Productivity</p></div></div>
+        <div class="stat-card"><div class="stat-icon purple"><i class="fas fa-compass"></i></div><div class="stat-info"><h4 th:text="${scores?.mentalResilienceScore ?: 0}">0</h4><p>Mental Resilience</p></div></div>
+        <div class="stat-card" style="border-color:rgba(108,92,231,0.4);"><div class="stat-icon purple" style="background:var(--gradient-primary);color:white;"><i class="fas fa-gem"></i></div><div class="stat-info"><h4 class="text-gradient" th:text="${scores?.overallMasteryScore ?: 0}">0</h4><p>Overall Mastery</p></div></div>
+    </div>
+
+    <!-- Radar Chart -->
+    <div class="card"><h4 style="margin-bottom:16px;"><i class="fas fa-chart-radar text-accent"></i> Self-Mastery Radar</h4><div id="disciplineRadar" style="height:350px;"></div></div>
+</main></div>
+<script th:src="@{/js/app.js}"></script>
+<script th:inline="javascript">
+    new ApexCharts(document.querySelector("#disciplineRadar"), {
+        series: [{ name: 'Score', data: [
+            [[${scores?.disciplineScore ?: 0}]], [[${scores?.focusScore ?: 0}]],
+            [[${scores?.selfControlScore ?: 0}]], [[${scores?.consistencyScore ?: 0}]],
+            [[${scores?.emotionalBalanceScore ?: 0}]], [[${scores?.productivityScore ?: 0}]],
+            [[${scores?.mentalResilienceScore ?: 0}]]
+        ]}],
+        chart: { type: 'radar', height: 350, toolbar: { show: false }, background: 'transparent', fontFamily: 'Inter' },
+        colors: ['#6c5ce7'], fill: { opacity: 0.25 }, stroke: { width: 2 }, markers: { size: 4 },
+        xaxis: { categories: ['Discipline','Focus','Self-Control','Consistency','Emotional Balance','Productivity','Mental Resilience'] },
+        yaxis: { show: false, min: 0, max: 100 },
+        plotOptions: { radar: { polygons: { strokeColors: 'rgba(255,255,255,0.06)', connectorColors: 'rgba(255,255,255,0.06)', fill: { colors: ['transparent'] } } } },
+        tooltip: { theme: 'dark' }
+    }).render();
+</script>
+</body></html>
+

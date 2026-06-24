@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Analytics - Self-improvement</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><link rel="stylesheet" th:href="@{/css/main.css}"><link rel="stylesheet" th:href="@{/css/components.css}">
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script></head>
+<body>
+<nav class="navbar"><div class="container"><a href="/dashboard" class="navbar-brand"><i class="fas fa-compass"></i><span>Self-<span class="text-gradient">improvement</span></span></a><ul class="navbar-links"><li><a th:href="@{/auth/logout}" class="btn btn-ghost btn-sm"><i class="fas fa-sign-out-alt"></i></a></li></ul></div></nav>
+<div class="app-layout">
+<aside class="sidebar"><ul class="sidebar-nav"><li><a href="/dashboard"><i class="fas fa-th-large"></i> Dashboard</a></li><li><a href="/goals"><i class="fas fa-bullseye"></i> Goals</a></li><li><a href="/habits"><i class="fas fa-fire"></i> Habits</a></li><li><a href="/focus"><i class="fas fa-crosshairs"></i> Focus Timer</a></li></ul><div class="sidebar-section">Self-Mastery</div><ul class="sidebar-nav"><li><a href="/accountability"><i class="fas fa-clipboard-check"></i> Accountability</a></li><li><a href="/emotions"><i class="fas fa-heart-pulse"></i> Emotional Log</a></li><li><a href="/journal"><i class="fas fa-book"></i> Journal</a></li><li><a href="/discipline"><i class="fas fa-shield-halved"></i> Discipline</a></li></ul><div class="sidebar-section">AI Intelligence</div><ul class="sidebar-nav"><li><a href="/ai-coach"><i class="fas fa-user-tie"></i> Professional Coach</a></li></ul><div class="sidebar-section">Reports</div><ul class="sidebar-nav"><li><a href="/analytics" class="active"><i class="fas fa-chart-bar"></i> Analytics</a></li><li><a href="/reports"><i class="fas fa-file-alt"></i> Reports</a></li><li><a href="/profile"><i class="fas fa-user-cog"></i> Profile</a></li></ul></aside>
+<main class="main-content">
+    <div class="page-header"><h1><i class="fas fa-chart-bar text-accent"></i> Life Analytics</h1><p>Comprehensive behavioral intelligence dashboard.</p></div>
+
+    <div class="grid grid-3 gap-3" style="margin-bottom:32px;">
+        <div class="stat-card"><div class="stat-icon purple"><i class="fas fa-bullseye"></i></div><div class="stat-info"><h4 th:text="${goals?.size() ?: 0}">0</h4><p>Total Goals</p></div></div>
+        <div class="stat-card"><div class="stat-icon green"><i class="fas fa-fire"></i></div><div class="stat-info"><h4 th:text="${habits?.size() ?: 0}">0</h4><p>Active Habits</p></div></div>
+        <div class="stat-card"><div class="stat-icon cyan"><i class="fas fa-clock"></i></div><div class="stat-info"><h4 th:text="${focusMinutes ?: 0}">0</h4><p>Focus Min Today</p></div></div>
+    </div>
+
+    <div class="grid grid-2 gap-3" style="margin-bottom:32px;">
+        <div class="card"><h4 style="margin-bottom:16px;"><i class="fas fa-chart-area text-accent"></i> Productivity Trend</h4><div id="productivityChart" style="height:280px;"></div></div>
+        <div class="card"><h4 style="margin-bottom:16px;"><i class="fas fa-chart-donut text-accent"></i> Goal Status</h4><div id="goalStatusChart" style="height:280px;"></div></div>
+    </div>
+    <div class="grid grid-2 gap-3">
+        <div class="card"><h4 style="margin-bottom:16px;"><i class="fas fa-chart-bar text-accent"></i> Habit Completion Rate</h4><div id="habitChart" style="height:280px;"></div></div>
+        <div class="card"><h4 style="margin-bottom:16px;"><i class="fas fa-heart-pulse text-accent"></i> Mood Trends</h4><div id="moodChart" style="height:280px;"></div></div>
+    </div>
+</main></div>
+<script th:src="@{/js/app.js}"></script>
+<script>
+const chartTheme = { chart: { background: 'transparent', fontFamily: 'Inter' }, tooltip: { theme: 'dark' }, grid: { borderColor: 'rgba(255,255,255,0.06)' } };
+
+new ApexCharts(document.querySelector("#productivityChart"), { ...chartTheme,
+    series: [{ name: 'Score', data: [65, 72, 68, 75, 80, 77, 82] }],
+    chart: { type: 'area', height: 280, toolbar: { show: false }, ...chartTheme.chart },
+    colors: ['#6c5ce7'], stroke: { curve: 'smooth', width: 2 },
+    fill: { type: 'gradient', gradient: { opacityFrom: 0.3, opacityTo: 0.05 } },
+    xaxis: { categories: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], labels: { style: { colors: '#6c6c80' } } },
+    yaxis: { labels: { style: { colors: '#6c6c80' } }, min: 40, max: 100 },
+    ...chartTheme
+}).render();
+
+new ApexCharts(document.querySelector("#goalStatusChart"), {
+    series: [3, 5, 1, 1], labels: ['Completed', 'In Progress', 'Not Started', 'Abandoned'],
+    chart: { type: 'donut', height: 280, background: 'transparent', fontFamily: 'Inter' },
+    colors: ['#00b894', '#6c5ce7', '#74b9ff', '#ff6b6b'],
+    plotOptions: { pie: { donut: { size: '65%', labels: { show: true, total: { show: true, color: '#a0a0b8' } } } } },
+    legend: { labels: { colors: '#a0a0b8' } }, stroke: { colors: ['#1a1a2e'] }, tooltip: { theme: 'dark' }
+}).render();
+
+new ApexCharts(document.querySelector("#habitChart"), {
+    series: [{ name: 'Completed', data: [5,6,4,7,5,6,7] }, { name: 'Missed', data: [2,1,3,0,2,1,0] }],
+    chart: { type: 'bar', height: 280, toolbar: { show: false }, background: 'transparent', fontFamily: 'Inter', stacked: true },
+    colors: ['#00b894', '#ff6b6b'], plotOptions: { bar: { borderRadius: 4, columnWidth: '50%' } },
+    xaxis: { categories: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], labels: { style: { colors: '#6c6c80' } } },
+    yaxis: { labels: { style: { colors: '#6c6c80' } } },
+    legend: { labels: { colors: '#a0a0b8' } }, grid: { borderColor: 'rgba(255,255,255,0.06)' }, tooltip: { theme: 'dark' }
+}).render();
+
+new ApexCharts(document.querySelector("#moodChart"), {
+    series: [{ name: 'Mood', data: [7,6,8,5,7,8,9] }, { name: 'Energy', data: [6,5,7,4,6,7,8] }],
+    chart: { type: 'line', height: 280, toolbar: { show: false }, background: 'transparent', fontFamily: 'Inter' },
+    colors: ['#fd79a8', '#ffeaa7'], stroke: { curve: 'smooth', width: 2 },
+    xaxis: { categories: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], labels: { style: { colors: '#6c6c80' } } },
+    yaxis: { labels: { style: { colors: '#6c6c80' } }, min: 0, max: 10 },
+    legend: { labels: { colors: '#a0a0b8' } }, grid: { borderColor: 'rgba(255,255,255,0.06)' }, tooltip: { theme: 'dark' }
+}).render();
+</script>
+</body></html>
+

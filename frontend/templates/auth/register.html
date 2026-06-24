@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Self-improvement</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/components.css}">
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-card">
+            <a href="/" class="navbar-brand" style="justify-content: center; margin-bottom: 24px;">
+                <i class="fas fa-compass"></i>
+                <span>Self-<span class="text-gradient">improvement</span></span>
+            </a>
+            <h2>Begin Your Journey</h2>
+            <p class="subtitle">Create your account and start mastering yourself</p>
+
+            <div th:if="${error}" class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i>
+                <span th:text="${error}">Error</span>
+            </div>
+
+            <form th:action="@{/auth/register}" method="post" th:object="${registerRequest}">
+                <div class="flex gap-2">
+                    <div class="form-group" style="flex:1">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-input" th:field="*{firstName}" placeholder="John" required>
+                    </div>
+                    <div class="form-group" style="flex:1">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-input" th:field="*{lastName}" placeholder="Doe">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-input" th:field="*{username}" placeholder="Choose a username" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" th:field="*{email}" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" th:field="*{password}" placeholder="Min 8 characters" required minlength="8">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" class="form-input" th:field="*{confirmPassword}" placeholder="Confirm password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full btn-lg" style="margin-top: 8px;">
+                    <i class="fas fa-rocket"></i> Create Account
+                </button>
+            </form>
+
+            <p class="auth-divider">Already have an account?</p>
+            <a th:href="@{/auth/login}" class="btn btn-outline btn-full">Sign In</a>
+        </div>
+    </div>
+</body>
+</html>
+
