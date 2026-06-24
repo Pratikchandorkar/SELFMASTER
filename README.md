@@ -206,7 +206,7 @@ erDiagram
    ```
 
 2. **Configure the Database:**
-   Create a schema named `self_improvement_db` in your MySQL instance.
+   Create a schema named `selfimprovementdb` in your MySQL instance.
    ```sql
    CREATE DATABASE self_improvement_db;
    ```
