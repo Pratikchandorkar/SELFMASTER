@@ -1,11 +1,11 @@
-# Self-improvement - AI-Powered Behavioral Intelligence Platform
+# Self-improvement - AI-Powered Behavioural Intelligence Platform
 
-Self-improvement is an intelligent behavioral operating system designed to help users defeat procrastination, build unbreakable discipline, and transform into their best selves. Powered by neuroscience-backed principles and AI integration, the platform tracks habits, goals, focus sessions, emotional patterns, and daily accountability while offering an interactive AI life coach and decision analyst.
+Self-improvement is an intelligent behavioural operating system designed to help users defeat procrastination, build unbreakable discipline, and transform into their best selves. Powered by neuroscience-backed principles and AI integration, the platform tracks habits, goals, focus sessions, emotional patterns, and daily accountability while offering an interactive AI life coach and decision analyst.
 
 ---
 
 ## 1. Project Overview
-Most productivity tools only track *what* you do. **Self-improvement** is designed to understand *why* you do it, predict *where* you might fail, and guide you on *how* to change. It translates daily behaviors into 7 distinct behavioral scores (Discipline, Focus, Self-Control, Consistency, Emotional Balance, Productivity, and Mental Resilience) to present a comprehensive, 360-degree view of your personal development.
+Most productivity tools only track *what* you do. **Self-improvement** is designed to understand *why* you do it, predict *where* you might fail, and guide you on *how* to change. It translates daily behaviors into 7 distinct behavioural scores (Discipline, Focus, Self-Control, Consistency, Emotional Balance, Productivity, and Mental Resilience) to present a comprehensive, 360-degree view of your personal development.
 
 ---
 
@@ -14,8 +14,8 @@ Most productivity tools only track *what* you do. **Self-improvement** is design
 * **Habit Intelligence:** Build positive habits or break negative ones with streak tracking, frequency configurations, and automatic habit score calculations.
 * **Focus Timer:** Log deep work sessions, Pomodoros, flow states, or dopamine detoxes with integrated distraction counters and automatic focus score logging.
 * **Daily Accountability Logs:** Structured morning planning (priorities, gratitude, intentions) and nightly reflections (wins, lessons, rating scales).
-* **Emotional Intelligence Log:** Monitor mood, energy, stress, and anxiety. Log triggers and notes to build emotional resilience and identify behavioral trends.
-* **AI Life Coach & Decision Support:** Real-time conversations with an AI coach trained in behavioral psychology, alongside a Decision Support system that analyzes choices across 5 impact dimensions.
+* **Emotional Intelligence Log:** Monitor mood, energy, stress, and anxiety. Log triggers and notes to build emotional resilience and identify behavioural trends.
+* **AI Life Coach & Decision Support:** Real-time conversations with an AI coach trained in behavioural psychology, alongside a Decision Support system that analyzes choices across 5 impact dimensions.
 * **Discipline & Mastery Scores:** Visualize your progress with interactive weekly trends and self-mastery radar charts.
 * **Comprehensive Reports:** Export and download weekly/monthly PDF reports, or download raw data in Excel and CSV formats.
 
